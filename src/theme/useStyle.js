@@ -205,6 +205,15 @@ const useStyle = makeStyles({
     },
     listSubItem:{
         padding:"0 0 0 30px"
+    },
+    checkbox:{
+        display:"block",
+        padding:0,
+        marginTop:5,
+        marginBottom:5
+    },
+    buttonAgregar:{
+        float:"right",
     }
 
 

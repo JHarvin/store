@@ -50,7 +50,7 @@ const MenuAdmin = () => {
                 </MenuItem>
                 
                 <MenuItem className={clases.listItem} onClick={cerrarMenu}>
-                    <Link className={clases.linkAppBarMovil} to="/" > 
+                    <Link className={clases.linkAppBarMovil} to="/admin/listaProductos" > 
                         <ListItemIcon className={clases.listItemIcon} > <Icon>storefront</Icon> </ListItemIcon>
                         <ListItemText>Productos</ListItemText>
                     </Link>
