@@ -5,6 +5,8 @@ import {Link} from 'react-router-dom';
 import MenuCliente from "./Desktop/MenuCliente";
 import MenuAdmin from "./Desktop/MenuAdmin";
 import MenuMovil from "./movil/MenuMovil";
+import MenuMovilPublico from "./movil/MenuMovilPublico";
+import MenuPublico from "./Desktop/MenuPublico";
 
 const MenuAppBar = () => {
     const [open, setOpen] = useState(false);
@@ -32,16 +34,9 @@ const MenuAppBar = () => {
                     >
                         <div className={clases.list}>
                             <List>
-                            {/*    <ListItem  button className={clases.listItem} onClick={closeTogle}>
-                                    <Link to="/login" className={clases.linkAppBarMovil} color="inherit" underline="none">
-                                    <ListItemIcon className={clases.listItemIcon}>
-                                        <Icon>person</Icon>
-                                    </ListItemIcon>
-                                    <ListItemText>Login</ListItemText>
-                                    </Link>
-                                </ListItem> */}
-
-                                <MenuMovil clickHandler={closeTogle} />
+                           
+                               {/** <MenuMovilPublico clickHandler={closeTogle} />*/}
+                               <MenuMovil clickHandler={closeTogle} />
                             </List>
                         </div>
 
@@ -59,12 +54,8 @@ const MenuAppBar = () => {
                     </div>
 
                     <div className={clases.sectionDesktop}>
-                       {/*  <Button color="inherit" className={clases.buttonIcon}>
-                            <Link to="/login" className={clases.linkDesktop} color="inherit" underline="none">
-                            <Icon className={clases.mr}>person</Icon>
-                            Inicia sesión
-                            </Link>
-                        </Button> */}
+                       
+                        {/*/**  <MenuPublico/> */}
                         <MenuCliente/>
                         <MenuAdmin/>
 

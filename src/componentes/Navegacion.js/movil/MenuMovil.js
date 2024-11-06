@@ -97,7 +97,7 @@ const MenuMovil = (props) => {
           </ListItem>
 
           <ListItem button className={clases.listSubItem} onClick={props.clickHandler}>
-            <Link className={clases.linkAppBarMovil} to="/" color="inherit" underline="none">
+            <Link className={clases.linkAppBarMovil} to="/admin/listaPedidos" color="inherit" underline="none">
               <ListItemIcon className={clases.listItemIcon}>
                 <Icon>shopping_cart</Icon>
               </ListItemIcon>

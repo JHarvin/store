@@ -214,6 +214,11 @@ const useStyle = makeStyles({
     },
     buttonAgregar:{
         float:"right",
+    },
+    avatarProducto:{
+        width:175,
+        height:175,
+        backgroundColor:"#F2F2F2"
     }
 
 

@@ -5,7 +5,7 @@ import useStyle from '../../theme/useStyle';
 const OrdenCompra = (props) => {
     //recuperar parametro de url
     const {id} = props.match.params;
-    const mensajeEnvio = 'Se realizó el envio';
+    const mensajeEnvio = 'No se realizó el envio';
     const mensajePago = 'Se realizó la compra';
     const clases = useStyle();
     return (
@@ -25,7 +25,7 @@ const OrdenCompra = (props) => {
 
                     <Typography variant='body2' className={clases.text_envio} >Dirección: calle san antonio abad san salvador el salvador casa 42</Typography>
 
-                    <div className={clases.alertDelivered} >
+                    <div className={clases.alertNotDelivered} >
 
                       <Typography variant='body2' className={clases.text_title}>
                         {mensajeEnvio}
@@ -147,15 +147,21 @@ const OrdenCompra = (props) => {
 
 
                                 <TableRow>
+                                    
                                     <TableCell colSpan={2}  >
-                                       <Button variant='contained' color='primary' size='large' fullWidth className={clases.gridmd}>
+                                        {/**Boton para el cliente */}
+                                        {/**
+                                     
+                                      <Button variant='contained' color='primary' size='large' fullWidth className={clases.gridmd}>
                                         Chivo wallet
                                        </Button>
 
                                        <Button variant='contained'  size='large' fullWidth>
                                         Tarjeta Debito/Credito
                                        </Button>
-
+                                     */}
+                                      {/**Boton para el admin */}
+                                         <Button variant='contained' color="primary" size='large' fullWidth>Marcar como entregado</Button>
                                     </TableCell>
 
                                    
