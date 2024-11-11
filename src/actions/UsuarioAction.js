@@ -5,7 +5,7 @@ import HttpCliente from '../componentes/servicios/HttpCliente';
         HttpCliente.post(`/api/usuario/registrar`,requestUsuario).then(response => {
             resolve(response);
         }).catch(error => {
-            resolve(error);
+            resolve(error.response);
         })  
     })
 };

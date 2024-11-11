@@ -4,7 +4,7 @@ import useStyle from '../../theme/useStyle';
 import {Link} from 'react-router-dom';
 import { registrarUsuario } from '../../actions/UsuarioAction';
 import toastr from '../../theme/notification.js/toastrConfig';
-import 'toastr/build/toastr.min.css';
+
 
 const clearUser ={
     nombre:'',
@@ -35,6 +35,7 @@ const RegistrarUsuario =() =>{
          registrarUsuario(usuario).then(response=>{
              console.log("Usuario registrado: ", response);
              toastr.success('Registrado con éxito', 'Éxito');
+             window.localStorage.setItem('token',response.data.token);
              setUsuario(clearUser);
          })
 
