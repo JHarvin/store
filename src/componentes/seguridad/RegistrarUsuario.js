@@ -2,20 +2,25 @@ import {Button, Avatar, Card, Container, Grid, Icon, TextField, Typography } fro
 import React, { useState } from 'react';
 import useStyle from '../../theme/useStyle';
 import {Link} from 'react-router-dom';
+import { registrarUsuario } from '../../actions/UsuarioAction';
+import toastr from '../../theme/notification.js/toastrConfig';
+import 'toastr/build/toastr.min.css';
 
 const clearUser ={
     nombre:'',
-    apellidos:'',
+    apellido:'',
     email:'',
-    password:''
+    password:'',
+    username:''
 }
 
 const RegistrarUsuario =() =>{
     const [usuario, setUsuario] = useState({
         nombre:'',
-        apellidos:'',
+        apellido:'',
         email:'',
-        password:''
+        password:'',
+        username:''
 
     });
     const handleChange =(e) =>{
@@ -27,8 +32,14 @@ const RegistrarUsuario =() =>{
     }
 
     const guardarUsuario = () =>{
-        console.log("Usuario: ", usuario);
-        setUsuario(clearUser);
+         registrarUsuario(usuario).then(response=>{
+             console.log("Usuario registrado: ", response);
+             toastr.success('Registrado con éxito', 'Éxito');
+             setUsuario(clearUser);
+         })
+
+        /*console.log("Usuario: ", usuario);
+        setUsuario(clearUser);*/
     }
     const clases =useStyle();
     return (
@@ -57,11 +68,23 @@ const RegistrarUsuario =() =>{
                             label="Apellido"
                             variant='outlined'
                             fullWidth
-                            name='apellidos'
-                            value={usuario.apellidos}
+                            name='apellido'
+                            value={usuario.apellido}
                             onChange={handleChange}
                             />
                         </Grid>
+
+                        <Grid item md={12} xs = {12} className={clases.gridmd}>
+                            <TextField
+                            label="Nombre de usuario"
+                            variant='outlined'
+                            fullWidth
+                            name='username'
+                            value={usuario.username}
+                            onChange={handleChange}
+                            />
+                        </Grid>
+
                         <Grid item md={12} xs = {12} className={clases.gridmd}>
                             <TextField
                             label="Email"

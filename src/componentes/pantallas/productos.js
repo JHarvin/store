@@ -14,7 +14,7 @@ import React, { useEffect, useState } from "react";
 import useStyle from "../../theme/useStyle";
 import { productoArray } from "../data/dataPrueba";
 import { getProductos } from "../../actions/ProductoAction";
-import { Pagination } from "@mui/material";
+import { Pagination } from "@material-ui/lab";
 
 const productos = (props) => {
 
