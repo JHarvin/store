@@ -14,7 +14,7 @@ const clearUser ={
     username:''
 }
 
-const RegistrarUsuario =() =>{
+const RegistrarUsuario =(props) =>{
     const [usuario, setUsuario] = useState({
         nombre:'',
         apellido:'',
@@ -37,6 +37,7 @@ const RegistrarUsuario =() =>{
              toastr.success('Registrado con éxito', 'Éxito');
              window.localStorage.setItem('token',response.data.token);
              setUsuario(clearUser);
+             props.history.push('/');
          })
 
         /*console.log("Usuario: ", usuario);

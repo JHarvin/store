@@ -49,6 +49,7 @@ const productos = (props) => {
   }, [requestProductos]); // se ejecuta una vez al renderizar igual que ngOnInit de angular (useEffect es similar que ngOnInit)
   // se ejecuta cuando cambia el estado de requestProductos
 
+  // eslint-disable-next-line no-unused-vars
   const miArray = productoArray;
   const verProducto = (id) => {
     props.history.push("/detalleProducto/" + id);
