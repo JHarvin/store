@@ -4,6 +4,7 @@ import useStyle from '../../theme/useStyle';
 import {Link} from 'react-router-dom';
 import { registrarUsuario } from '../../actions/UsuarioAction';
 import toastr from '../../theme/notification.js/toastrConfig';
+import { useStateValue } from '../../contexto/store';
 
 
 const clearUser ={
@@ -15,6 +16,7 @@ const clearUser ={
 }
 
 const RegistrarUsuario =(props) =>{
+    const [{sesionUsuario}, dispatch]=useStateValue();
     const [usuario, setUsuario] = useState({
         nombre:'',
         apellido:'',
@@ -32,7 +34,7 @@ const RegistrarUsuario =(props) =>{
     }
 
     const guardarUsuario = () =>{
-         registrarUsuario(usuario).then(response=>{
+         registrarUsuario(usuario,dispatch).then(response=>{
              console.log("Usuario registrado: ", response);
              toastr.success('Registrado con éxito', 'Éxito');
              window.localStorage.setItem('token',response.data.token);

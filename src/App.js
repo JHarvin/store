@@ -19,17 +19,18 @@ import EditarProducto from "./componentes/pantallas/admin/EditarProducto";
 import ListaPedidos from "./componentes/pantallas/admin/ListaPedidos";
 import { useState } from "react";
 import { getUsuario } from "./actions/UsuarioAction";
+import { useStateValue } from "./contexto/store";
 
 
 function App() {
-
+  const [sesionUsuario,dispatch ] = useStateValue();
   const [servidorRespuesta, setServidorRespuesta] = useState(false);
 
 
 useEffect(() => {
 
   if(!servidorRespuesta){ //solo cuando sea falase se ejecutara
-    getUsuario().then(response=>{
+    getUsuario(dispatch).then(response=>{
       console.log("Estado de sesion: ", response);
       setServidorRespuesta(true);
   })

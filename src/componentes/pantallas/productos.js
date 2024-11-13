@@ -42,7 +42,7 @@ const productos = (props) => {
   useEffect(() => {
     const getListaProductos = async () => {
       const respuesta = await getProductos(requestProductos);
-      console.log(respuesta.data);
+      
       setPaginadorProductos(respuesta.data); //se le agregad data para obtener los datos de la api, sino se le pone da undefined
     };
     getListaProductos();

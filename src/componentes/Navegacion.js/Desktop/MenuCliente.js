@@ -2,8 +2,11 @@ import React, { useState } from 'react';
 import useStyle from '../../../theme/useStyle';
 import { Avatar, Button, Icon, ListItemIcon, ListItemText, Menu, MenuItem } from '@material-ui/core';
 import { Link } from 'react-router-dom/cjs/react-router-dom.min';
+import { useStateValue } from '../../../contexto/store';
 
 const MenuCliente = () => {
+    // eslint-disable-next-line no-unused-vars
+    const [{sesionUsuario},dispatch ] = useStateValue();
     const clases = useStyle();
     const [anchorEl, setAnchorEl ] = useState(null);
     const abrirMenu = (e) => {
@@ -32,7 +35,10 @@ const MenuCliente = () => {
                         src='https://zaytandzaatar.com.au/wp-content/uploads/2022/08/Deafult-Profile-Pitcher.png'
 
                     />
-                    John Conora
+                    { sesionUsuario ? (sesionUsuario.autenticado ? sesionUsuario.usuario.nombre:'No esta en sesión')  
+                     : 'No esta en sesión'}{
+                        console.log("sesion usuario: ", sesionUsuario)
+                     }
                     <Icon>keyboard_arrow_down</Icon>
                 </div>
 

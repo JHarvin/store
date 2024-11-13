@@ -4,9 +4,12 @@ import useStyle from "../../theme/useStyle";
 import {Link} from 'react-router-dom';
 import { loginUsuario } from "../../actions/UsuarioAction";
 import toastr from "../../theme/notification.js/toastrConfig";
-// alt*62, 60
+import { useStateValue } from "../../contexto/store";
+// alt*62, 60 < >
 
 const Login =(props)  =>{
+    // eslint-disable-next-line no-unused-vars
+    const [{sesionUsuario},dispatch ] = useStateValue();
     const clases=useStyle();
     const clearUser ={
        
@@ -26,22 +29,24 @@ const Login =(props)  =>{
         })
     }
 
-    const login= async ()=>{
-        console.log(usuario);
-        const respuesta = await loginUsuario(usuario);
-        if(respuesta.status===200){
-            setUsuario(clearUser); 
-            console.log("Usuario: ", usuario);
-            window.localStorage.setItem('token',respuesta.data.token);
-            props.history.push('/');
-            toastr.success('Bienvenido ' + usuario.email, 'Éxito');
-         
-        }else{
-            console.log("status: ", respuesta.status);
-            console.log("Email o contraseña incorrectos"); 
-            toastr.error('Email o contraseña incorrectos', 'Error');
-           setUsuario(clearUser);
-        }
+    const login=  ()=>{
+        
+          loginUsuario(usuario,dispatch).then(respuesta=>{
+            if(respuesta.status===200){
+                setUsuario(clearUser); 
+             
+                window.localStorage.setItem('token',respuesta.data.token);
+                props.history.push('/');
+                toastr.success('Bienvenido ' + usuario.email, 'Éxito');
+             
+            }else{
+              
+                toastr.error('Email o contraseña incorrectos', 'Error');
+               setUsuario(clearUser);
+            }
+               
+        });
+       
         
 
     }
