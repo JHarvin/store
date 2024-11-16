@@ -8,6 +8,7 @@ import {
   CardMedia,
   Container,
   Grid,
+  Icon,
   Typography,
 } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
@@ -15,8 +16,12 @@ import useStyle from "../../theme/useStyle";
 import { productoArray } from "../data/dataPrueba";
 import { getProductos } from "../../actions/ProductoAction";
 import { Pagination } from "@material-ui/lab";
+import { addItemsCarrito } from "../../actions/CarritoCompraAction";
+import { useStateValue } from "../../contexto/store";
 
 const productos = (props) => {
+
+  const [{sesionCarritoCompra},dispatch] = useStateValue();
 
     const [requestProductos, setRequestProductos] = useState({
         pageIndex: 1,
@@ -50,7 +55,11 @@ const productos = (props) => {
   // se ejecuta cuando cambia el estado de requestProductos
 
   // eslint-disable-next-line no-unused-vars
-  const miArray = productoArray;
+  const miArray = productoArray;// no se usa
+  //agregar producto al carrito
+  const  agregarProductoCarrito = async (item) => {
+   await addItemsCarrito(sesionCarritoCompra,item,dispatch);
+  };
   const verProducto = (id) => {
     props.history.push("/detalleProducto/" + id);
   };
@@ -80,8 +89,8 @@ const productos = (props) => {
               </CardMedia>
               <CardContent>
                 <Typography variant="h6" className={clases.text_card}>
-                  {" "}
-                  {data.nombre}{" "}
+               
+                  {data.nombre}
                 </Typography>
                 <Button
                   variant="contained"
@@ -90,6 +99,16 @@ const productos = (props) => {
                   onClick={() => verProducto(data.id)}
                 >
                   Más detalles
+                </Button>
+
+                <Button
+                  variant="contained"
+                  color="#FFB079"
+                  fullWidth
+                  onClick={() => agregarProductoCarrito(data)}
+                >
+                  <Icon>add_shopping_cart</Icon>
+                  Agregar al carrito
                 </Button>
               </CardContent>
             </Card>
