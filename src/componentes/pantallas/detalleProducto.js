@@ -1,23 +1,64 @@
 /* eslint-disable no-unused-vars */
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import useStyle from '../../theme/useStyle';
-import { Button, CardMedia, Container, Grid, MenuItem, Paper, Table, TableBody, TableCell, TableContainer, TableRow, TextField, Typography } from '@material-ui/core';
+import { Button, CardMedia, Container, Grid, MenuItem, Paper, Select, Table, TableBody, TableCell, TableContainer, TableRow, TextField, Typography } from '@material-ui/core';
+import { getProducto } from '../../actions/ProductoAction';
+import { addItemsCarrito } from '../../actions/CarritoCompraAction';
+import { useStateValue } from '../../contexto/store';
 
 const DetalleProducto = (props) => {
-    const agregarCarrito = () =>{
+    const [{sesionCarritoCompra},dispatch] = useStateValue();
+    const [cantidad, setCantidad] = useState(1);
+    const [productoSeleccionado, setProductoSeleccionado] = useState({
+            id: 0,
+            nombre: "",
+            descripcion: "",
+            stock: 0,
+            marcaId: 0,
+            marcaNombre: "",
+            categoriaId: 0,
+            categoriaNombre: "",
+            precio: 0.0,
+            imagen:"",
+            cantidad: 0
+    });
+
+    useEffect(() => {
+        const id = props.match.params.id;
+      const getProductoAsync= async () => {
+        
+        const response = await getProducto(id);
+        setProductoSeleccionado(response.data);
+      }
+      getProductoAsync();
+
+    }, [productoSeleccionado]);
+
+
+    const agregarCarrito = async () =>{
+        const item ={
+            id: productoSeleccionado.id,
+            producto: productoSeleccionado.nombre,
+            precio: productoSeleccionado.precio,
+            cantidad: cantidad,
+            imagen: productoSeleccionado.imagen,
+            marca: productoSeleccionado.marcaNombre,
+            categoria: productoSeleccionado.categoriaNombre
+        };
+        await addItemsCarrito(sesionCarritoCompra,item,dispatch);
         props.history.push("/carrito");
     }
     const clases = useStyle();
 
     return (
       <Container className={clases.containermt}>
-        <Typography variant='h4' className={clases.text_title} >Chamarra</Typography>
+        <Typography variant='h4' className={clases.text_title} >{productoSeleccionado.nombre}</Typography>
         <Grid container spacing={4} >
             <Grid item lg={8} md={8} xs={12} >
                 <Paper variant='outlined' square className={clases.PaperImg}>
                     <CardMedia className={clases.mediaDetalle}
                     image='https://www.motocenter.com.mx/wp-content/uploads/2019/09/CITIZEN-GRIS.png'
-                    title='Chamarra test'
+                    title={productoSeleccionado.descripcion}
                     >
 
                     </CardMedia>
@@ -34,7 +75,7 @@ const DetalleProducto = (props) => {
                                     <Typography variant='subtitle2' >Precio</Typography>
                                 </TableCell>
                                 <TableCell>
-                                    <Typography variant='subtitle2' >$25.99</Typography>
+                                    <Typography variant='subtitle2' >$ {productoSeleccionado.precio}</Typography>
                                 </TableCell>
                             </TableRow>
 
@@ -43,22 +84,19 @@ const DetalleProducto = (props) => {
                                     <Typography variant='subtitle2' >Cantidad</Typography>
                                 </TableCell>
                                 <TableCell>
-                                    <TextField 
-                                    size='small'
-                                    select
-                                    variant='outlined'
-                                    >
-                                        <MenuItem value={1} >
-                                        1
-                                        </MenuItem>
-                                        <MenuItem value={2} >
-                                        2
-                                        </MenuItem>
-                                        <MenuItem value={3} >
-                                        3
-                                        </MenuItem>
-
-                                    </TextField>
+                                <TextField 
+                                id='cantidad_producto'
+                                label=''
+                                value={cantidad}
+                                onChange={event => setCantidad(event.target.value)}
+                                defaultValue={1}
+                                type='number'
+                                InputLabelProps={
+                                    {
+                                        shrink: true
+                                    }
+                                }
+                                />
                                 </TableCell>
                             </TableRow>
                             <TableRow>
@@ -83,16 +121,16 @@ const DetalleProducto = (props) => {
                 <Grid container spacing={2}>
                     <Grid item md={6} >
                         <Typography className={clases.text_detalle}>
-                            Precio: $25.99
+                            Precio: ${productoSeleccionado.precio}
                         </Typography>
                         <Typography className={clases.text_detalle}>
-                            Unidades disponibles: 15
+                            Unidades disponibles: {productoSeleccionado.stock}
                         </Typography>
                         <Typography className={clases.text_detalle}>
-                            Marca: Axxis
+                            Marca: {productoSeleccionado.marcaNombre}
                         </Typography>
                         <Typography className={clases.text_detalle}>
-                           Temporada: Invierno
+                           Categoría: {productoSeleccionado.categoriaNombre}
                         </Typography>
 
                     </Grid>
@@ -101,7 +139,7 @@ const DetalleProducto = (props) => {
                            Descripción:
                         </Typography>
                         <Typography className={clases.text_detalle}>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                            {productoSeleccionado.descripcion}
                         </Typography>
                     </Grid>
                 </Grid>

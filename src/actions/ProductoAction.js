@@ -11,7 +11,17 @@ export const getProductos = (requestProductos) => {
         instancia.get(`/api/producto?pageIndex=${requestProductos.pageIndex}&pageSize=${requestProductos.pageSize}&search=${requestProductos.search}`).then(response => {
             resolve(response);
         }).catch(error => {
-            eject(error);
+            eject(error.response);
         })  
      })
+};
+
+export const getProducto = (id) => {
+    return new Promise((resolve,eject)=>{
+        instancia.get(`/api/producto/${id}`).then(response => {
+            resolve(response);
+        }).catch(error => {
+            eject(error.response);
+        })  
+    })
 };
