@@ -9,7 +9,7 @@ const CarritoCompras = (props) => {
     const [{sesionCarritoCompra},dispatch] = useStateValue();
     //[{sesionCarritoCompra},dispatch] = useStateValue();
     console.log('sesioncarrito: ->',sesionCarritoCompra);
-    const miArray = sesionCarritoCompra.item;     //productoArray;
+    const miArray = sesionCarritoCompra.items;     //productoArray;
     let suma = 0;
     miArray.forEach(prod=>{
         suma += prod.precio;
@@ -40,20 +40,20 @@ const CarritoCompras = (props) => {
                                         </TableCell>
                                         <TableCell>
                                             <Typography className={clases.text_detalle}>
-                                                {producto.producto}
+                                             {producto.producto}
 
                                             </Typography>
                                         </TableCell>
 
                                         <TableCell>
                                             <Typography className={clases.text_detalle}>
-                                                ${producto.precio}
+                                             ${producto.precio}
 
                                             </Typography>
                                         </TableCell>
                                         <TableCell>
                                         <Typography className={clases.text_detalle}>
-                                                ${producto.cantidad}
+                                             {producto.cantidad}
 
                                             </Typography>
                                         </TableCell>
@@ -75,7 +75,7 @@ const CarritoCompras = (props) => {
                     <Paper variant='outlined' square className={clases.paperPadding}>
                         <Typography variant='h6' className={clases.text_title} >SubTotal ({miArray.length}) Productos </Typography>
                         <Typography className={clases.text_title} > 
-                            $146.99
+                            $ {suma}
                         </Typography>
                         <Divider className={clases.gridmd} />
                         <Button

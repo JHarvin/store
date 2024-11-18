@@ -36,6 +36,7 @@ const DetalleProducto = (props) => {
 
 
     const agregarCarrito = async () =>{
+        console.log(productoSeleccionado);
         const item ={
             id: productoSeleccionado.id,
             producto: productoSeleccionado.nombre,

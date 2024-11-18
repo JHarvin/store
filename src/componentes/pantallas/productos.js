@@ -58,7 +58,18 @@ const productos = (props) => {
   const miArray = productoArray;// no se usa
   //agregar producto al carrito
   const  agregarProductoCarrito = async (item) => {
-   await addItemsCarrito(sesionCarritoCompra,item,dispatch);
+    const items ={
+      id: item.id,
+      producto: item.nombre,
+      precio: item.precio,
+      cantidad: 1,
+      imagen: item.imagen,
+      marca: item.marcaNombre,
+      categoria: item.categoriaNombre
+  };
+
+
+   await addItemsCarrito(sesionCarritoCompra,items,dispatch);
   };
   const verProducto = (id) => {
     props.history.push("/detalleProducto/" + id);
