@@ -9,7 +9,7 @@ const CarritoCompras = (props) => {
     const [{sesionCarritoCompra},dispatch] = useStateValue();
     //[{sesionCarritoCompra},dispatch] = useStateValue();
     console.log('sesioncarrito: ->',sesionCarritoCompra);
-    const miArray = sesionCarritoCompra.items;     //productoArray;
+    const miArray = sesionCarritoCompra ? sesionCarritoCompra.items : [];     //productoArray;
     let suma = 0;
     miArray.forEach(prod=>{
         suma += prod.precio;
