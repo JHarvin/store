@@ -32,7 +32,7 @@ const CarritoCompras = (props) => {
                                         <TableCell>
                                             <CardMedia 
                                             className={clases.imgProductoCC}
-                                            image='https://www.motocenter.com.mx/wp-content/uploads/2019/09/CITIZEN-GRIS.png'
+                                            image={`${process.env.REACT_APP_API_URL}${producto.imagen.replace(/\\/g, "/")}`}
                                             title={producto.producto}
                                             >
 

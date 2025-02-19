@@ -91,7 +91,7 @@ const productos = (props) => {
             <Card>
               <CardMedia
                 className={clases.media}
-                image="https://www.motocenter.com.mx/wp-content/uploads/2019/09/CITIZEN-GRIS.png"
+                image={`${process.env.REACT_APP_API_URL}${data.imagen.replace(/\\/g, "/")}`}
                 title={data.nombre}
               >
                 <Avatar variant="square" className={clases.price}>

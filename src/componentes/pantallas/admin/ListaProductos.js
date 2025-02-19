@@ -1,11 +1,44 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import useStyle from '../../../theme/useStyle';
 import { Button, Container, Grid, Icon, Table, TableBody, TableCell, TableHead, TableRow, Typography } from '@material-ui/core';
-import { productoArray } from '../../data/dataPrueba';
+
+import { getProductos } from '../../../actions/ProductoAction';
+import { Pagination } from '@material-ui/lab';
 
 const ListaProductos = (props) => {
+
+    const [requestProductos, setRequestProductos] = useState({
+        pageIndex:1,
+        pageSize:5,
+        search:''
+    });
+
+    const [paginadorProductos, setPaginadorProductos] = useState({
+        count: 0,
+        pageIndex: 0,
+        pageSize: 0,
+        pageCount: 0,
+        items: [],
+    });
+
+    const handleChange = (event, value) => {
+        setRequestProductos({
+            ...requestProductos,
+            pageIndex: value,
+        });
+    };
+
+    useEffect(()=>{
+        const getListaProductos = async ()=>{
+           const respuesta = await getProductos(requestProductos);
+           console.log("lista productos respuesta",respuesta.data); 
+           setPaginadorProductos(respuesta.data);
+        }
+        getListaProductos();
+    },[requestProductos]);
+
     const clases = useStyle();
-    const productos = productoArray;
+ 
     const agregarProducto =()=>{
         props.history.push("/admin/agregarProducto");
     }
@@ -37,15 +70,16 @@ const ListaProductos = (props) => {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {productos.map((producto) => (
-                            <TableRow key={producto.key}>
+                    {paginadorProductos.items.map((producto) => (
+                            <TableRow key={producto.id}>
                                 <TableCell>{producto.id}</TableCell>
-                                <TableCell>{producto.titulo}</TableCell>
+                                <TableCell>{producto.nombre}</TableCell>
                                 <TableCell>${producto.precio}</TableCell>
-                                <TableCell>{producto.marca}</TableCell>
-                                <TableCell>{producto.categoria}</TableCell>
+                                <TableCell>{producto.marcaNombre}</TableCell>
+                                <TableCell>{producto.categoriaNombre}</TableCell>
+                             
                                 <TableCell>
-                                    <Button variant='contained' color='primary' onClick={()=>editarProducto(producto.key)} >
+                                    <Button variant='contained' color='primary' onClick={()=>editarProducto(producto.id)} >
                                     <Icon>edit</Icon>
                                     </Button>
                                     <Button variant='contained' color='secondary'  >
@@ -57,7 +91,10 @@ const ListaProductos = (props) => {
                     ))}
                 </TableBody>
             </Table>
-        
+        <Pagination count={paginadorProductos.pageCount} 
+        page={paginadorProductos.pageIndex}
+        onChange={handleChange} 
+        />
         </Container>
     );
 };

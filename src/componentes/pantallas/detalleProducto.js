@@ -58,7 +58,7 @@ const DetalleProducto = (props) => {
             <Grid item lg={8} md={8} xs={12} >
                 <Paper variant='outlined' square className={clases.PaperImg}>
                     <CardMedia className={clases.mediaDetalle}
-                    image='https://www.motocenter.com.mx/wp-content/uploads/2019/09/CITIZEN-GRIS.png'
+                    image={`${process.env.REACT_APP_API_URL}${productoSeleccionado.imagen.replace(/\\/g, "/")}`}
                     title={productoSeleccionado.descripcion}
                     >
 
